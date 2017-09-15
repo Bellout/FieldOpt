@@ -1,3 +1,12 @@
+# Vagrant virtualbox setup for FieldOpt-build
+
+## Installing Vagrant and virtualbox
+Download the Vagrant installer from the Vagrant web page (do NOT apt install)
+sudo apt install virtualbox
+
+# Vagrantfile
+The Vagrantfile includes the information about the virtual machine, how much memory it gets and what will be installed. One can set 'salt.run_highstate = false' if one wishes a clean and empty ubuntu machine, if set to true it will install everything listed in salt/top.sls
+
 # FieldOpt
 Petroleum Field Development Optimization Framework.
 
@@ -195,4 +204,3 @@ And finally install the libraries to the `opt` directory:
 ```
 sudo ./b2 --prefix=/opt/boost_1-57/
 ```
-

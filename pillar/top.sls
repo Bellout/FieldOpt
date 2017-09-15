@@ -1,0 +1,3 @@
+base:
+  'fieldopt':
+    - fieldopt
