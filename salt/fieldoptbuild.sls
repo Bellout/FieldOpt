@@ -2,7 +2,7 @@
   file.directory:
     - makedirs: True
 
-cmake ../FieldOpt:
+cmake ../FieldOpt/FieldOpt:
   cmd.run:
     - cwd: /vagrant/FieldOpt-build
 

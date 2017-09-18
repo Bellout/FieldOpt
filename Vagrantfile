@@ -9,7 +9,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.synced_folder "salt", "/srv/salt/", type: "nfs"
   config.vm.synced_folder "pillar", "/srv/pillar/", type: "nfs"
-  # config.vm.synced_folder "FieldOpt", "/vagrant/FieldOpt", type: "nfs", nfs_version: 4, nfs_udp: false
+  # config.vm.synced_folder "FieldOpt", "/vagrant/FieldOpt/FieldOpt", type: "nfs", nfs_version: 4, nfs_udp: false
 
 
   config.vm.provision :salt do |salt|
@@ -24,7 +24,7 @@ Vagrant.configure("2") do |config|
   # config.vm.network "public_network", ip: "192.168.33.10"
 
   config.vm.provider "virtualbox" do |vb, override|
-    override.vm.synced_folder ".", "/vagrant", type: "nfs"
+    override.vm.synced_folder ".", "/vagrant/FieldOpt", type: "nfs"
     # override.vm.network "forwarded_port", guest: 4505, host: 4505, gateway_ports: true, host_ip: '*'
     # override.vm.network "forwarded_port", guest: 4506, host: 4506, gateway_ports: true, host_ip: '*'
     vb.name = NAME

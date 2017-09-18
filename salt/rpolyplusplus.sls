@@ -3,12 +3,14 @@ rpp repo:
     - name: https://github.com/sweeneychris/RpolyPlusPlus.git
     - target: /tmp/RpolyPlusPlus
 
-cmake CMakeLists.txt:
+cmake rpp:
   cmd.run:
+    - name: cmake CMakeLists.txt
     - cwd: /tmp/RpolyPlusPlus
 
-make:
+make rpp:
   cmd.run:
+    - name: make
     - cwd: /tmp/RpolyPlusPlus
 
 /usr/include/RpolyPlusPlus:

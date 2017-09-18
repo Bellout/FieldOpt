@@ -2,12 +2,14 @@
 libgtest-dev:
   pkg.installed
 
-cmake CMakeLists.txt:
+cmake gtest:
   cmd.run:
+    - name: cmake CMakeLists.txt
     - cwd: /usr/src/gtest
 
-make:
+make gtest:
   cmd.run:
+    - name: make
     - cwd: /usr/src/gtest
 
 cp *.a /usr/lib:

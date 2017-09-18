@@ -4,4 +4,4 @@ base:
     - gtest
     - rpolyplusplus
     - ert
-    - fieldoptbuild
+   # - fieldoptbuild

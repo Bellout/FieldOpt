@@ -1,20 +1,23 @@
-rpp repo:
+ert repo:
   git.latest:
     - name: https://github.com/Ensembles/ert.git
-    - target: /home/ubuntu/ert
+    - target: /vagrant/ert
 
-/home/vagrant/ert-build:
+/vagrant/ert-build:
   file.directory:
     - makedirs: True
 
-cmake ../ert:
+cmake ert:
   cmd.run:
-    - cwd: /home/ubuntu/ert-build
+    - name: cmake ../ert
+    - cwd: /vagrant/ert-build
 
-make:
+make ert:
   cmd.run:
-    - cwd: /home/ubuntu/ert-build
+    - name: make
+    - cwd: /vagrant/ert-build
 
-make install:
+make install ert:
   cmd.run:
-    - cwd: /home/ubuntu/ert-build
+    - name: make install
+    - cwd: /vagrant/ert-build
