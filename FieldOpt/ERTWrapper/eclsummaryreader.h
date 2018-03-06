@@ -25,7 +25,6 @@
 #include <map>
 #include <vector>
 #include <set>
-#include <string>
 
 namespace ERTWrapper {
     namespace ECLSummary {
@@ -116,16 +115,16 @@ namespace ERTWrapper {
             vector<double> fgpt_;
             vector<double> fwit_;
             vector<double> fgit_;
-            map<string, vector<double> > wopt_;
-            map<string, vector<double> > wwpt_;
-            map<string, vector<double> > wgpt_;
-            map<string, vector<double> > wwit_;
-            map<string, vector<double> > wgit_;
-            map<string, vector<double> > wopr_;
-            map<string, vector<double> > wwpr_;
-            map<string, vector<double> > wgpr_;
-            map<string, vector<double> > wwir_;
-            map<string, vector<double> > wgir_;
+            map<string, vector<double>> wopt_;
+            map<string, vector<double>> wwpt_;
+            map<string, vector<double>> wgpt_;
+            map<string, vector<double>> wwit_;
+            map<string, vector<double>> wgit_;
+            map<string, vector<double>> wopr_;
+            map<string, vector<double>> wwpr_;
+            map<string, vector<double>> wgpr_;
+            map<string, vector<double>> wwir_;
+            map<string, vector<double>> wgir_;
 
             void initializeVectors();
             void initializeTimeVector();

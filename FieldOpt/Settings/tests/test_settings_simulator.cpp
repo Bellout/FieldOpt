@@ -32,8 +32,7 @@ using namespace Settings;
 
 namespace {
 
-class SimulatorSettingsTest : public ::testing::Test,
-                              public TestResources::TestResourceSettings {
+class SimulatorSettingsTest : public ::testing::Test, public TestResources::TestResourceSettings {
 protected:
     SimulatorSettingsTest()
     { }
@@ -46,8 +45,7 @@ protected:
 TEST_F(SimulatorSettingsTest, Fields) {
     EXPECT_EQ(settings_simulator_->type(), Simulator::SimulatorType::ECLIPSE);
     EXPECT_EQ(settings_simulator_->commands()->size(), 1);
-    EXPECT_STREQ("../examples/ECLIPSE/HORZWELL/HORZWELL.DATA",
-                 settings_simulator_->driver_file_path().toLatin1().constData());
+    EXPECT_STREQ("../examples/ECLIPSE/HORZWELL/HORZWELL.DATA", settings_simulator_->driver_file_path().toLatin1().constData());
 }
 
 }
