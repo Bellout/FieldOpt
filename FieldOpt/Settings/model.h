@@ -39,12 +39,16 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <algorithm>
+#include <iostream>
 
 // ---------------------------------------------------------
 using std::string;
 using std::pair;
 using std::vector;
 using std::multimap;
+using std::cout;
+using std::endl;
 
 // ---------------------------------------------------------
 namespace Settings {
@@ -61,35 +65,59 @@ namespace Settings {
  */
 class Model
 {
-  // ---------------------------------------------------------
+  // -------------------------------------------------------
   friend class Settings;
 
  public:
-  // ---------------------------------------------------------
+  // -------------------------------------------------------
   // This should only be accessed externally for testing purposes.
   Model(QJsonObject json_model);
+  Model(){};
 
-  // ---------------------------------------------------------
+  // -------------------------------------------------------
   enum ReservoirGridSourceType : int { ECLIPSE=1 };
 
-  inline const string getResType(ReservoirGridSourceType resType) {
+  inline const static QString ResTypeStr(ReservoirGridSourceType resType) {
     switch (resType) {
       case ECLIPSE : return "ECLIPSE";
     }
   }
 
-  // ---------------------------------------------------------
+  // -------------------------------------------------------
   enum WellType : int { Injector=011, Producer=12 };
 
+  inline const static QString WellTypeStr(WellType wellType) {
+    switch (wellType) {
+      case Injector : return "Injector";
+      case Producer : return "Producer";
+    }
+  }
+
+  // -------------------------------------------------------
   enum ControlMode : int { BHPControl=21, RateControl=22 };
 
+  inline const static QString ControlModeStr(ControlMode controlMode) {
+    switch (controlMode) {
+      case BHPControl : return "BHPControl";
+      case RateControl : return "RateControl";
+    }
+  }
+
+  // -------------------------------------------------------
   enum InjectionType : int { WaterInjection=31, GasInjection=32 };
 
-  // ---------------------------------------------------------
+  inline const static QString InjectionTypeStr(InjectionType injectionType) {
+    switch (injectionType) {
+      case WaterInjection : return "WaterInjection";
+      case GasInjection : return "GasInjection";
+    }
+  }
+
+  // -------------------------------------------------------
   enum WellDefinitionType : int { WellBlocks=41,
     WellSpline=42, PseudoContVertical2D=43 };
 
-  inline const string getWellDefTypeStr(WellDefinitionType wellDefType) {
+  inline const static QString WellDefTypeStr(WellDefinitionType wellDefType) {
     switch (wellDefType) {
       case WellBlocks : return "WellBlocks";
       case WellSpline : return "WellSpline";
@@ -97,29 +125,54 @@ class Model
     }
   }
 
-  // ---------------------------------------------------------
+  // -------------------------------------------------------
   enum WellCompletionType : int { Perforation=61 };
 
+  inline const static QString WellCompTypeStr(WellCompletionType wellCompType) {
+    switch (wellCompType) {
+      case Perforation : return "Perforation";
+    }
+  }
+
+  // -------------------------------------------------------
   enum WellState : int {
     WellOpen=71, WellShut=72 };
 
+  inline const static QString WellStateStr(WellState wellState) {
+    switch (wellState) {
+      case WellOpen : return "WellOpen";
+      case WellShut : return "WellShut";
+    }
+  }
+
+  // -------------------------------------------------------
   enum PreferredPhase : int {
     Oil=81, Water=82, Gas=83, Liquid=84 };
 
+  inline const static QString PreferredPhaseStr(PreferredPhase prefPhase) {
+    switch (prefPhase) {
+      case Oil : return "Oil";
+      case Water : return "Water";
+      case Gas : return "Gas";
+      case Liquid : return "Liquid";
+    }
+  }
+
+  // -------------------------------------------------------
   enum Direction : int { X=91, Y=92, Z=93 };
 
-  // ---------------------------------------------------------
+  // -------------------------------------------------------
   enum DrillingMode : int {
     Synchronous=101, Sequential=102 };
 
-  inline const string getDrillingStr(DrillingMode drilling) {
+  inline const static QString DrillingStr(DrillingMode drilling) {
     switch (drilling) {
       case Synchronous : return "Synchronous";
       case Sequential : return "Sequential";
     }
   }
 
-// ---------------------------------------------------------
+  // -------------------------------------------------------
   struct Reservoir {
     // Source of grid file (i.e., which simulator produced it).
     ReservoirGridSourceType type;
@@ -128,7 +181,7 @@ class Model
     QString path;
   };
 
-// ---------------------------------------------------------
+  // -------------------------------------------------------
   struct Well {
     Well(){}
 
@@ -189,6 +242,7 @@ class Model
       InjectionType injection_type;
       bool is_variable;
       QString name;
+
     };
 
     // -----------------------------------------------------
@@ -246,7 +300,23 @@ class Model
     // List of well controls
     QList<ControlEntry> controls;
     std::vector<int> verb_vector_;
+
   };
+
+  // -------------------------------------------------------
+  inline static QString ControlStr(Well::ControlEntry c_entry) {
+
+    QString str;
+    str += " name: " + c_entry.name;
+    str += " time_step: " + QString::number(c_entry.time_step);
+//    str += " state: " + WellStateStr(c_entry.state);
+//    str += " mode: " + ControlModeStr(c_entry.control_mode);
+//    str += " inj_type: " + InjectionTypeStr(c_entry.injection_type);
+//    str += " is_variable: " + QString::number(c_entry.is_variable);
+
+    // cout << "ControlStr: " << str.toStdString();
+    return str;
+  }
 
   // -------------------------------------------------------
   // Get the struct containing reservoir settings.
@@ -263,42 +333,49 @@ class Model
   QList<Well> wells() const { return wells_; }
 
   // Get the control times for the schedule
-  QList<double> control_times() const { return control_times_; }
+  QList<double> control_times() const
+  { return control_times_; }
 
   // -------------------------------------------------------
-  void set_verbosity_vector(const std::vector<int> verb_vector)
+//  void append_control_step(double step) {
+//    control_times_.append(step);
+//  }
+
+  // -------------------------------------------------------
+  void sort_control_steps() {
+    std::sort(control_times_.begin(),
+              control_times_.end());
+  }
+
+  // -------------------------------------------------------
+  void set_verbosity_vector(const vector<int> verb_vector)
   { verb_vector_ = verb_vector; }
-  std::vector<int> verb_vector() const { return verb_vector_; }
+  vector<int> verb_vector() const { return verb_vector_; }
 
   // -------------------------------------------------------
   Model::Well getWell(QString well_name);
 
   DrillingMode drillingMode_;
 
-//  Drilling GetDrilling() {return drillseq_; };
+  QList<Well> wells_;
 
-//  void UpdateDrilling(Drilling& drilling);
-//
-//  void GetDrillingStr(Drilling& drilling) const;
-//
-//  void SetDrillingSeq(Drilling& drilling,
-//                      QList<Well>& wells) const;
+  Model::Well EmptyModel();
 
  private:
-// ---------------------------------------------------------
+  // -------------------------------------------------------
   Reservoir reservoir_;
-  QList<Well> wells_;
+
   QList<double> control_times_;
 
-  // ---------------------------------------------------------
+  // -------------------------------------------------------
   void readReservoir(QJsonObject json_reservoir);
   Well readSingleWell(QJsonObject json_well);
 
-// ---------------------------------------------------------
+  // -------------------------------------------------------
   bool controlTimeIsDeclared(double time) const;
 
-// ---------------------------------------------------------
-  std::vector<int> verb_vector_ = std::vector<int>(11,0);
+  // -------------------------------------------------------
+  vector<int> verb_vector_ = vector<int>(11,0);
 };
 
 }

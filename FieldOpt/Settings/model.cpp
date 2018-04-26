@@ -42,7 +42,8 @@ Model::Model(QJsonObject json_model) {
   // -------------------------------------------------------
   // Reservoir
   try {
-    QJsonObject json_reservoir = json_model["Reservoir"].toObject();
+    QJsonObject json_reservoir =
+        json_model["Reservoir"].toObject();
     readReservoir(json_reservoir);
   }
   catch (std::exception const &ex) {
@@ -97,10 +98,6 @@ Model::Model(QJsonObject json_model) {
   } else {
     drillingMode_ = DrillingMode::Synchronous;
   }
-
-  // -------------------------------------------------------
-  // Compute drilling sequence (use Model.cpp const function)
-
 }
 
 // =========================================================
@@ -124,6 +121,25 @@ void Model::readReservoir(QJsonObject json_reservoir) {
       throw FileNotFoundException(reservoir_.path.toStdString());
   } else { reservoir_.path = ""; }
 
+}
+
+// =========================================================
+Model::Well Model::EmptyModel(){
+  Well well;
+  well.name = "TEST";
+  well.group = "";
+  well.type = WellType::Injector;
+  well.definition_type = WellDefinitionType::WellBlocks;
+  well.controls = QList<Well::ControlEntry>();
+
+  Well::ControlEntry control;
+  control.time_step = 10.0;
+  control.state = WellState::WellOpen;
+  control.control_mode = ControlMode::BHPControl;
+  well.type == WellType::Injector;
+  control.injection_type = InjectionType::GasInjection;
+  control.is_variable = false;
+  well.controls.append(control);
 }
 
 // =========================================================
@@ -473,6 +489,8 @@ Model::Well Model::getWell(QString well_name) {
   for (int wnr = 0; wnr < wells_.size(); ++wnr) {
     if(wells_.at(wnr).name.compare(well_name)) {
       return wells_.at(wnr);
+    } else {
+      throw std::runtime_error("Finding well by name failed.");
     }
   }
 }

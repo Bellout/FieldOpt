@@ -2,7 +2,7 @@
  Copyright (C) 2018-
  Mathias C. Bellout <mathias.bellout@ntnu.com>
 
- Created by bellout on 4/21/18.
+ Created by bellout on 4/25/18.
 
  This file is part of the FieldOpt project.
 
@@ -21,64 +21,65 @@
  If not, see <http://www.gnu.org/licenses/>.
 ***********************************************************/
 
-// ---------------------------------------------------------
-#ifndef FIELDOPT_WELL_GROUP_H
-#define FIELDOPT_WELL_GROUP_H
+#ifndef FIELDOPT_DRILLING_SEQUENCE_H
+#define FIELDOPT_DRILLING_SEQUENCE_H
 
 // ---------------------------------------------------------
-#include "Settings/settings.h"
-#include "Settings/model.h"
-
-#include "Reservoir/grid/eclgrid.h"
-#include "Model/properties/variable_property_container.h"
-#include "Model/properties/discrete_property.h"
-
-#include "well.h"
-#include "drilling_sequence.h"
-// #include "Model/model.h"
-
-
-// ---------------------------------------------------------
-// STD
-#include <string>
+// QT / STD
+//#include <QString>
+//#include <QList>
+//#include <iomanip>
 #include <vector>
 #include <map>
 
 // ---------------------------------------------------------
-//namespace Model {
-//struct Drilling{};
-//}
+#include "Settings/model.h"
 
 // ---------------------------------------------------------
 namespace Model {
-namespace WellGroups {
+
+// ---------------------------------------------------------
+using std::map;
+using std::vector;
+using std::multimap;
+using std::pair;
+using std::string;
 
 // =========================================================
 /*!
- * \brief Group class collects multiples wells in the model.
+ * \brief Collects data maps used to define drilling sequence
+ * for all wells
  */
-class WellGroup {
+class DrillingSequence {
+
  public:
-  WellGroup(
-      Settings::Model settings,
-      int group_nr,
-      ::Model::DrillingSequence drilling,
-      ::Model::Properties::VariablePropertyContainer *variable_container,
-      ::Reservoir::Grid::Grid *grid);
+  DrillingSequence() {};
 
   // -------------------------------------------------------
-  QList<Wells::Well *> *group_wells_;
-
-  QList<Wells::Well *> *group_wells() const {
-    return group_wells_;
-  }
+  Settings::Model::DrillingMode mode;
 
   // -------------------------------------------------------
-  ::Model::Properties::DiscreteProperty *drill_seq_;
+  // Main orderings
+  vector<pair<string, pair<int, int>>> name_vs_order;
+  map<string, int> name_vs_num;
+  multimap<string, double> name_vs_time;
+
+  // -------------------------------------------------------
+  // Transformation map
+  multimap<int, pair<int, string>> mp_wells_into_groups;
+
+  // -------------------------------------------------------
+  // Resulting vecotrs
+  vector<vector<pair<int, string>>> wseq_grpd_sorted_name;
+
+  // -------------------------------------------------------
+  // Resulting aux vectors
+  vector<int> drill_groups_;
+  vector<pair<string, double>> wseq_grpd_sorted_vs_time;
+  map<string, double> wseq_grpd_sorted_vs_tstep;
 
 };
 
 }
-}
 
-#endif //FIELDOPT_WELL_GROUP_H
+#endif //FIELDOPT_DRILLING_SEQUENCE_H

@@ -1,8 +1,8 @@
 /***********************************************************
- Created: 12.11.2015 2015 by einar
+ Copyright (C) 2018-
+ Mathias C. Bellout <mathias.bellout@ntnu.com>
 
- Copyright (C) 2015-2017
- Einar J.M. Baumann <einar.baumann@gmail.com>
+ Created by bellout on 4/25/18.
 
  This file is part of the FieldOpt project.
 
@@ -21,28 +21,4 @@
  If not, see <http://www.gnu.org/licenses/>.
 ***********************************************************/
 
-// ---------------------------------------------------------
-#include "ecldriverpart.h"
-
-// ---------------------------------------------------------
-namespace Simulation {
-namespace SimulatorInterfaces {
-namespace DriverFileWriters {
-namespace DriverParts {
-namespace ECLDriverParts {
-
-// =========================================================
-void ECLDriverPart::initializeBaseEntryLine(int n) {
-
-  // -------------------------------------------------------
-  base_entry_line_ = QStringList();
-  while (base_entry_line_.size() < n) {
-    base_entry_line_.append("1*");
-  }
-}
-
-}
-}
-}
-}
-}
+#include "drilling_sequence.h"

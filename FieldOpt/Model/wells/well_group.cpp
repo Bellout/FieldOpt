@@ -23,6 +23,7 @@
 
 // ---------------------------------------------------------
 #include "well_group.h"
+#include <iostream>
 
 // ---------------------------------------------------------
 namespace Model {
@@ -32,6 +33,8 @@ namespace WellGroups {
 using std::pair;
 using std::vector;
 using std::string;
+using std::cout;
+using std::endl;
 
 // =========================================================
 WellGroup::WellGroup(
@@ -96,6 +99,6 @@ WellGroup::WellGroup(
   }
 
 }
-}
 
+}
 }

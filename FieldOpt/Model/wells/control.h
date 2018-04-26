@@ -57,7 +57,8 @@ class Control
           ::Model::Properties::VariablePropertyContainer *variables);
 
   // ---------------------------------------------------------
-  int time_step() const { return time_step_->value(); }
+  double time_step() const { return time_step_->value(); }
+  void setTStep(double tstep) { time_step_->setValue(tstep); }
 
   bool open() const { return open_->value(); }
   void setOpen(bool open) { open_->setValue(open); }
@@ -74,12 +75,16 @@ class Control
   ::Settings::Model::ControlMode mode() const
   { return mode_; }
 
+  void setMode(::Settings::Model::ControlMode mode)
+  { mode_ = mode; }
+
   ::Settings::Model::InjectionType injection_fluid() const
   { return injection_fluid_; }
 
  private:
   // ---------------------------------------------------------
-  Properties::DiscreteProperty *time_step_;
+  // Properties::DiscreteProperty *time_step_;
+  Properties::ContinousProperty *time_step_;
   Properties::BinaryProperty *open_;
   Properties::ContinousProperty *bhp_;
   Properties::ContinousProperty *rate_;
