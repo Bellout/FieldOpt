@@ -416,54 +416,6 @@ Model::Well Model::readSingleWell(QJsonObject json_well) {
             "Type (water/gas) must be specified for injector wells.");
       }
 
-<<<<<<< HEAD
-        // State (Open or shut)
-        if (QString::compare("Shut", json_controls.at(i).toObject()["State"].toString()) == 0)
-            control.state = WellState::WellShut;
-        else
-            control.state = WellState::WellOpen;
-
-
-        // Control mode
-        if (QString::compare("BHP", json_controls.at(i).toObject()["Mode"].toString()) == 0) {
-            control.control_mode = ControlMode::BHPControl;
-            control.bhp = json_controls.at(i).toObject()["BHP"].toDouble();
-            control.name = "BHP#" + well.name + "#" + QString::number(control.time_step);
-            if (json_controls[i].toObject().contains("Rate")) {
-                control.rate = json_controls[i].toObject()["Rate"].toDouble();
-            }
-            else {
-                control.rate = -1;
-            }
-        }
-        else if (QString::compare("Rate", json_controls.at(i).toObject()["Mode"].toString()) == 0) {
-            control.control_mode = ControlMode::RateControl;
-            control.rate = json_controls.at(i).toObject()["Rate"].toDouble();
-            control.name = "Rate#" + well.name + "#" + QString::number(control.time_step);
-            if (json_controls[i].toObject().contains("BHP")) {
-                control.bhp = json_controls[i].toObject()["BHP"].toDouble();
-            }
-            else {
-                control.bhp = -1;
-            }
-        }
-        else throw UnableToParseWellsModelSectionException("Well control type " + json_controls.at(i).toObject()["Mode"].toString().toStdString() + " not recognized for well " + well.name.toStdString());
-
-        // Injection type
-        if (well.type == WellType::Injector) {
-            if (!json_controls.at(i).toObject().contains("Type"))
-                throw UnableToParseWellsModelSectionException("Type (water/gas) must be specified for injector wells.");
-            if (QString::compare("Water", json_controls.at(i).toObject()["Type"].toString()) == 0)
-                control.injection_type = InjectionType::WaterInjection;
-            else if (QString::compare("Gas", json_controls.at(i).toObject()["Type"].toString()) == 0)
-                control.injection_type = InjectionType::GasInjection;
-        }
-        if (json_controls[i].toObject()["IsVariable"].toBool())
-            control.is_variable = true;
-        else
-            control.is_variable = false;
-        well.controls.append(control);
-=======
       // -----------------------------------------------------------
       if (QString::compare(
           "Water", json_controls.at(i).toObject()["Type"].toString()) == 0) {
@@ -473,7 +425,6 @@ Model::Well Model::readSingleWell(QJsonObject json_well) {
           "Gas", json_controls.at(i).toObject()["Type"].toString()) == 0) {
         control.injection_type = InjectionType::GasInjection;
       }
->>>>>>> feature/Olympus-debug
     }
 
     // -------------------------------------------------------------

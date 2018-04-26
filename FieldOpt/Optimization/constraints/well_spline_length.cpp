@@ -115,9 +115,7 @@ double WellSplineLength::Penalty(Case *c) {
 }
 
 long double WellSplineLength::PenaltyNormalized(Case *c) {
-    auto endpts = GetEndpointValueVectors(c, affected_well_);
-    double well_length =  (endpts.first - endpts.second).norm();
-    return well_length;
+    return normalizer_.normalize(Penalty(c));
 }
 
 }

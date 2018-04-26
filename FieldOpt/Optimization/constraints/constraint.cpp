@@ -61,15 +61,7 @@ long double Constraint::PenaltyNormalized(Case *c) {
     return normalizer_.normalize(Penalty(c));
 }
 
-<<<<<<< HEAD
-long double Constraint::PenaltyLength(Case *c)
-{
-    return normalizer_.normalize(Penalty(c));
-}
-
-=======
 // ---------------------------------------------------------
->>>>>>> feature/Olympus-debug
 void Constraint::InitializeNormalizer(QList<Case *> cases) {
     if (!normalizer_.is_ready()) {
         cout << "WARNING: using default normalization parameter values" << endl;

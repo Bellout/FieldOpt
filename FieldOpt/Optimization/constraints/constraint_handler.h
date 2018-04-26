@@ -96,12 +96,8 @@ class ConstraintHandler
    * @return Weighted sum of all normalized penalties
    */
   long double GetWeightedNormalizedPenalties(Case *c);
-<<<<<<< HEAD
-  long double GetWeightedLengthPenalties(Case *c);
-=======
 
   // -----------------------------------------------------------------
->>>>>>> feature/Olympus-debug
   Eigen::VectorXd GetLowerBounds(QList<QUuid> id_vector) const;
   Eigen::VectorXd GetUpperBounds(QList<QUuid> id_vector) const;
 

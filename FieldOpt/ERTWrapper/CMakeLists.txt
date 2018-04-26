@@ -39,9 +39,9 @@ find_library(ert_util
 
 # Add library ==========================================================
 add_library(ertwrapper
-    ertwrapper_exceptions.h
-    eclgridreader.cpp
-    eclsummaryreader.cpp)
+        ertwrapper_exceptions.h
+        eclgridreader.cpp
+        eclsummaryreader.cpp)
 add_library(fieldopt::ertwrapper ALIAS ${PROJECT_NAME})
 
 # Include dirs =========================================================
@@ -65,7 +65,7 @@ endif ()
 
 # Target include directories ===========================================
 target_include_directories(ertwrapper PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
 
 # Compile options ======================================================
 add_compile_options(-std=c++11)
@@ -74,24 +74,24 @@ add_compile_options(-std=c++11)
 # shared library libwellindexcalculator.so may be linked with
 # static reservoir and ertwrapper libraries
 if (BUILD_WIC_ADGPRS)
-  set_target_properties(ertwrapper
-      PROPERTIES COMPILE_FLAGS "-fPIC")
+    set_target_properties(ertwrapper
+            PROPERTIES COMPILE_FLAGS "-fPIC")
 endif()
 
 # Unit tests ===========================================================
 if (BUILD_TESTING)
-  find_package(GTest REQUIRED)
-  include_directories(${GTEST_INCLUDE_DIRS})
-  add_executable(test_ertwrapper
-      tests/test_eclgridreader.cpp
-      tests/test_eclsummaryreader.cpp
-      )
-  target_link_libraries(test_ertwrapper
-      fieldopt::ertwrapper
-      ${GTEST_BOTH_LIBRARIES}
-      ${CMAKE_THREAD_LIBS_INIT})
+    find_package(GTest REQUIRED)
+    include_directories(${GTEST_INCLUDE_DIRS})
+    add_executable(test_ertwrapper
+            tests/test_eclgridreader.cpp
+            tests/test_eclsummaryreader.cpp
+            )
+    target_link_libraries(test_ertwrapper
+            fieldopt::ertwrapper
+            ${GTEST_BOTH_LIBRARIES}
+            ${CMAKE_THREAD_LIBS_INIT})
 
-  add_test(NAME test_ertwrapper COMMAND $<TARGET_FILE:test_ertwrapper>)
+    add_test(NAME test_ertwrapper COMMAND $<TARGET_FILE:test_ertwrapper>)
 endif()
 
 # Install targets ======================================================
@@ -102,3 +102,4 @@ install(TARGETS ertwrapper
         )
 
 # Debug: include dirs ==================================================
+include(../InclDirDbg.cmake)
