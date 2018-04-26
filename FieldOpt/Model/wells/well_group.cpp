@@ -90,8 +90,8 @@ WellGroup::WellGroup(
 
     // -----------------------------------------------------
     auto it = drilling.name_vs_time.find(wn);
-    drilling.name_vs_time.insert(
-        it, std::pair(wn,well->GetDrillingTime()));
+//    drilling.name_vs_time.insert(
+//        it, std::pair(wn,well->GetDrillingTime()));
 
   }
 

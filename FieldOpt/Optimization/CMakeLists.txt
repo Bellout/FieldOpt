@@ -80,7 +80,7 @@ target_link_libraries(optimization
     PUBLIC fieldopt::runner
     PUBLIC Qt5::Core
     PUBLIC fieldopt::3rdpartysolvers
-    ${CMAKE_SOURCE_DIR}/FieldOpt-3rdPartySolvers/lib/libsnopt-7.2.12.2.so
+#    ${CMAKE_SOURCE_DIR}/FieldOpt-3rdPartySolvers/lib/libsnopt-7.2.12.2.so
     PUBLIC ${Boost_LIBRARIES})
 
 # Target include directories ===========================================
