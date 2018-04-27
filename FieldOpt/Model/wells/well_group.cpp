@@ -40,7 +40,7 @@ using std::endl;
 WellGroup::WellGroup(
     Settings::Model well_settings,
     int group_nr,
-    Model::Drilling drilling,
+    ::Model::DrillingSequence drilling,
     ::Model::Properties::VariablePropertyContainer *variable_container,
     ::Reservoir::Grid::Grid *grid) {
 
@@ -56,6 +56,7 @@ WellGroup::WellGroup(
   for (int i = 0; i < wells_in_group_.size(); ++i)
     wname = wname + wells_in_group_[i].second;
 
+  // -------------------------------------------------------
   QString gname = "WellGroup#" +
       QString::fromStdString(wname) +
       "#" + QString::number(group_nr);
@@ -81,8 +82,8 @@ WellGroup::WellGroup(
 
     // -----------------------------------------------------
     if (well_settings.verb_vector()[5] >= 1) // idx:5 -> mod
-      cout << FCYAN << "\nWell=" << wn
-           << "\n----------------------------- \n" << AEND;
+      cout << BCYAN << FBLUE << "Well=" << wn
+           << "-------------------- " << AEND << endl;
 
     // -----------------------------------------------------
     auto well = new Wells::Well(well_settings,
@@ -90,11 +91,6 @@ WellGroup::WellGroup(
                                 variable_container,
                                 grid);
     group_wells_->append(well);
-
-    // -----------------------------------------------------
-    auto it = drilling.name_vs_time.find(wn);
-//    drilling.name_vs_time.insert(
-//        it, std::pair(wn,well->GetDrillingTime()));
 
   }
 
