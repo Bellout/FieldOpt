@@ -106,16 +106,11 @@ void WellSplineLength::InitializeNormalizer(QList<Case *> cases) {
 double WellSplineLength::Penalty(Case *c) {
     auto endpts = GetEndpointValueVectors(c, affected_well_);
     double well_length =  (endpts.first - endpts.second).norm();
-    if (well_length > max_length_)
-        return well_length - max_length_;
-    else if (well_length < min_length_)
-        return min_length_ - well_length;
-    else
-        return 0.0;
-}
+    return well_length;
+    }
 
 long double WellSplineLength::PenaltyNormalized(Case *c) {
-    return normalizer_.normalize(Penalty(c));
+    return Penalty(c);
 }
 
 }

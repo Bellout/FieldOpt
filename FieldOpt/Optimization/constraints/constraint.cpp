@@ -58,8 +58,14 @@ double Constraint::Penalty(Case *c) {
 
 // ---------------------------------------------------------
 long double Constraint::PenaltyNormalized(Case *c) {
-    return normalizer_.normalize(Penalty(c));
+    return Penalty(c);
 }
+
+long double Constraint::PenaltyLength(Case *c)
+{
+        return Penalty(c);
+}
+
 
 // ---------------------------------------------------------
 void Constraint::InitializeNormalizer(QList<Case *> cases) {

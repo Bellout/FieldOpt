@@ -328,6 +328,7 @@ class Optimizer : public Loggable
    * @return The penalized objective function value.
    */
   double PenalizedOFV(Case *c);
+  double PenalizedLengthOFV(Case *c);
 
  private:
 
