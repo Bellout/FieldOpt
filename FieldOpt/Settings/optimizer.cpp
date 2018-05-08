@@ -250,7 +250,7 @@ Optimizer::Optimizer(QJsonObject json_optimizer) {
 
       // ---------------------------------------------------
       QJsonArray json_components =
-          json_objective["WeightedSumComponents"].toArray();
+              json_objective["WeightedSumComponents"].toArray();
 
       // ---------------------------------------------------
       for (int i = 0; i < json_components.size(); ++i) {
@@ -258,10 +258,10 @@ Optimizer::Optimizer(QJsonObject json_optimizer) {
         // -------------------------------------------------
         Objective::WeightedSumComponent component;
         component.coefficient =
-            json_components.at(i).toObject()["Coefficient"].toDouble();
+                json_components.at(i).toObject()["Coefficient"].toDouble();
 
         component.property =
-            json_components.at(i).toObject()["Property"].toString();
+                json_components.at(i).toObject()["Property"].toString();
 
         // -------------------------------------------------
         if (json_components.at(i).toObject()["IsWellProp"].toBool()) {
@@ -269,15 +269,43 @@ Optimizer::Optimizer(QJsonObject json_optimizer) {
           // -----------------------------------------------
           component.is_well_prop = true;
           component.well =
-              json_components.at(i).toObject()["Well"].toString();
+                  json_components.at(i).toObject()["Well"].toString();
 
         } else { component.is_well_prop = false; }
 
         // -------------------------------------------------
         component.time_step =
-            json_components.at(i).toObject()["TimeStep"].toInt();
+                json_components.at(i).toObject()["TimeStep"].toInt();
         objective_.weighted_sum.append(component);
       }
+    }
+    else if (QString::compare(objective_type, "NPV") == 0) {
+    // -------------------------------------------------
+    objective_.type = ObjectiveType::NPV;
+    objective_.NPV_sum = QList<Objective::NPVComponent>();
+    // ---------------------------------------------------
+    QJsonArray json_components =
+            json_objective["NPVComponents"].toArray();
+    // ---------------------------------------------------
+    for (int i = 0; i < json_components.size(); ++i) {
+      // -------------------------------------------------
+      Objective::NPVComponent component;
+      component.coefficient =
+              json_components.at(i).toObject()["Coefficient"].toDouble();
+      component.property =
+              json_components.at(i).toObject()["Property"].toString();
+      // -------------------------------------------------
+      if (json_components.at(i).toObject()["IsWellProp"].toBool()) {
+        // -----------------------------------------------
+        component.is_well_prop = true;
+        component.well =
+                json_components.at(i).toObject()["Well"].toString();
+      } else { component.is_well_prop = false; }
+      // -------------------------------------------------
+      component.time_step =
+              json_components.at(i).toObject()["TimeStep"].toInt();
+      objective_.NPV_sum.append(component);
+    }
 
       // ---------------------------------------------------
     } else {

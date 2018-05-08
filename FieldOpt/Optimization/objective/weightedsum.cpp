@@ -49,7 +49,7 @@ WeightedSum::WeightedSum(Settings::Optimizer *settings,
     comp->property = results_->GetPropertyKeyFromString(comp->property_name);
     comp->coefficient = settings->objective().weighted_sum.at(i).coefficient;
     comp->time_step = settings->objective().weighted_sum.at(i).time_step;
-
+    comp->report_time = results->Time;
     if (settings->objective().weighted_sum.at(i).is_well_prop) {
       comp->is_well_property = true;
       comp->well = settings->objective().weighted_sum.at(i).well;

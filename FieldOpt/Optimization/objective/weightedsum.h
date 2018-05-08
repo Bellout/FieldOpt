@@ -76,6 +76,7 @@ class WeightedSum : public Objective
     Simulation::Results::Results::Property property;
     int time_step;
     bool is_well_property;
+    int report_time;
     QString well;
     double resolveValue(Simulation::Results::Results *results);
   };

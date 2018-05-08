@@ -34,6 +34,7 @@
 #include <Optimization/optimizers/DFO.h>
 #include <Optimization/optimizers/SNOPTSolver.h>
 #include "Optimization/objective/weightedsum.h"
+#include "Optimization/objective/NPV.h"
 
 #include <Simulation/simulator_interfaces/flowsimulator.h>
 #include "Simulation/simulator_interfaces/eclsimulator.h"
@@ -221,6 +222,14 @@ void AbstractRunner::InitializeObjectiveFunction() {
           new Optimization::Objective::WeightedSum(settings_->optimizer(),
                                                    simulator_->results());
       break;
+
+    case Settings::Optimizer::ObjectiveType::NPV:
+      if (settings_->verb_vector()[0] >= 1) // idx:0 -> run (Runner)
+        std::cout << "[run]Objective function type: NPV" << std::endl;
+          objective_function_ =
+                  new Optimization::Objective::NPV(settings_->optimizer(),
+                                                   simulator_->results());
+          break;
 
       // ---------------------------------------------------
     default:
