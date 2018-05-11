@@ -226,6 +226,7 @@ void AbstractRunner::InitializeObjectiveFunction() {
     case Settings::Optimizer::ObjectiveType::NPV:
       if (settings_->verb_vector()[0] >= 1) // idx:0 -> run (Runner)
         std::cout << "[run]Objective function type: NPV" << std::endl;
+      std::cout << "attempting to get into the NPV function";
           objective_function_ =
                   new Optimization::Objective::NPV(settings_->optimizer(),
                                                    simulator_->results());

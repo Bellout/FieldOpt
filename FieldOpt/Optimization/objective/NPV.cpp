@@ -22,18 +22,18 @@ namespace Objective {
 
 NPV::NPV(Settings::Optimizer *settings,
          Simulation::Results::Results *results) {
+    cout << "I'm here, inside NPV" << endl;
     settings_ = settings;
     results_ = results;
     components_ = new QList<NPV::Component *>();
     auto report_time = results->GetValueVector(results->Time);
-
     for (int i = 0; i < settings->objective().NPV_sum.size(); ++i) {
         auto *comp = new NPV::Component();
         comp->property_name = settings->objective().NPV_sum.at(i).property;
         comp->property = results_->GetPropertyKeyFromString(comp->property_name);
         comp->coefficient = settings->objective().NPV_sum.at(i).coefficient;
         comp->time_step = settings->objective().NPV_sum.at(i).time_step;
-
+        cout << "imported" << endl;
 
         for (int j = 0; j < report_time.size(); j++) {
             if (abs(report_time.at(j) - settings->objective().NPV_sum.at(i).time_step) < 0.1) {

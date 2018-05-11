@@ -194,12 +194,16 @@ createProducerEntry(WellControls::WellSetting *setting) {
       producer_entry_line[2] = "BHP";
       producer_entry_line[8] =
           QString::number(setting->control->bhp());
+      if (setting->control->rate() != -1)
+        producer_entry_line[6] = QString::number(setting->control->rate());
       break;
 
     case ::Settings::Model::ControlMode::RateControl:
       producer_entry_line[2] = "LRAT";
       producer_entry_line[6] =
           QString::number(setting->control->rate());
+      if (setting->control->bhp() != -1)
+        producer_entry_line[8] = QString::number(setting->control->bhp());
       break;
 
     default:
@@ -255,11 +259,15 @@ createInjectorEntry(WellControls::WellSetting *setting) {
     case ::Settings::Model::ControlMode::BHPControl:
       injector_entry_line[3] = "BHP";
       injector_entry_line[6] = QString::number(setting->control->bhp());
+      if (setting->control->rate() != -1)
+        injector_entry_line[4] = QString::number(setting->control->rate());
       break;
 
     case ::Settings::Model::ControlMode::RateControl:
       injector_entry_line[3] = "RATE";
       injector_entry_line[4] = QString::number(setting->control->rate());
+      if (setting->control->bhp() != -1)
+        injector_entry_line[6] = QString::number(setting->control->bhp());
       break;
 
     default:

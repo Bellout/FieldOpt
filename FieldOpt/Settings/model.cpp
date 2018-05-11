@@ -388,6 +388,12 @@ Model::Well Model::readSingleWell(QJsonObject json_well) {
 
       control.name = "BHP#" + well.name + "#"
           + QString::number(control.time_step);
+      if (json_controls[i].toObject().contains("Rate")) {
+        control.rate = json_controls[i].toObject()["Rate"].toDouble();
+      }
+      else {
+        control.rate = -1;
+      }
 
       // -----------------------------------------------------------
     } else if (QString::compare(
@@ -400,6 +406,12 @@ Model::Well Model::readSingleWell(QJsonObject json_well) {
 
       control.name = "Rate#" + well.name + "#"
           + QString::number(control.time_step);
+      if (json_controls[i].toObject().contains("BHP")) {
+        control.bhp = json_controls[i].toObject()["BHP"].toDouble();
+      }
+      else {
+        control.bhp = -1;
+      }
 
     } else {
       throw UnableToParseWellsModelSectionException(
