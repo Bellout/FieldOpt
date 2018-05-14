@@ -25,11 +25,13 @@ Simulation::Results::Results *results);
 
 double value() const;
 
+
 private:
 /*!
  * \brief The Component class is used for internal representation of the components of the
  * weighted sum.
  */
+
 class Component {
 public:
 QString property_name;
@@ -37,7 +39,6 @@ double coefficient;
 Simulation::Results::Results::Property property;
 int time_step;
 bool is_well_property;
-int report_time;
 QString well;
 double resolveValue(Simulation::Results::Results *results);
 };
@@ -45,6 +46,8 @@ double resolveValue(Simulation::Results::Results *results);
 QList<Component *> *components_; //!< List of gamma, k pairs.
 Simulation::Results::Results *results_;  //!< Object providing access to simulator results.
 Settings::Optimizer *settings_;
+
+
 };
 
 }

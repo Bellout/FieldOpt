@@ -32,7 +32,6 @@ namespace Objective {
 Objective::Objective()
 {
 }
-
 void Objective::SetVerbosityLevel(int level) {
     verbosity_level_ = level;
     if (level > 4) std::cout << "Initialized Objective Function." << std::endl;

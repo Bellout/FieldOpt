@@ -64,6 +64,7 @@ class WeightedSum : public Objective
 
   double value() const;
 
+
  private:
   /*!
    * \brief The Component class is used for internal representation of the components of the
